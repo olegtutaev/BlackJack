@@ -8,19 +8,19 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Oleg\\.nuget\\packages\\": {}
+    "C:\\Users\\133\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\VS_Projects\\BlackJack\\BlackJack\\BlackJack.csproj",
+      "projectUniqueName": "C:\\VS_Projects\\BlackJack\\BlackJack\\BlackJack.csproj",
       "projectName": "BlackJack",
-      "projectPath": "D:\\VS_Projects\\BlackJack\\BlackJack\\BlackJack.csproj",
-      "packagesPath": "C:\\Users\\Oleg\\.nuget\\packages\\",
-      "outputPath": "D:\\VS_Projects\\BlackJack\\BlackJack\\obj\\",
+      "projectPath": "C:\\VS_Projects\\BlackJack\\BlackJack\\BlackJack.csproj",
+      "packagesPath": "C:\\Users\\133\\.nuget\\packages\\",
+      "outputPath": "C:\\VS_Projects\\BlackJack\\BlackJack\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Oleg\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\133\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -51,7 +51,8 @@
           "net47",
           "net471",
           "net472",
-          "net48"
+          "net48",
+          "net481"
         ],
         "assetTargetFallback": true,
         "warn": true,
@@ -60,7 +61,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -2,12 +2,15 @@
 
 internal class Game
 {
-  public Game()
+    public Game()
   {
     this.CardUtil = new CardUtil();
     this.IsNext = true;
   }
 
+  public static int userScores;
+  public static int computerScores;
+  public static int dangerSum = 11;
   public CardUtil CardUtil { get; }
   public bool IsNext { get; private set; }
 
@@ -44,16 +47,30 @@ internal class Game
     return false;
   }
 
-  private void CalculateScoresUser(int score)
+  /// <summary>
+  /// Принимает значение последней полученной карты и суммирует с уже набранными очками.
+  /// </summary>
+  /// <param name="lastUserCardValue"></param>
+  /// <returns></returns>
+  private static int GetUserScores(int lastUserCardValue)
   {
     // Увеличить кол-во очков у игроока.
     // Можно перенести этот метод, по желанию, в утильный класс для игроков.
+
+    return userScores += lastUserCardValue;
   }
 
-  private void CalculateScoresComputer(int score)
+  /// <summary>
+  /// Принимает значение последней полученной карты и суммирует с уже набранными очками.
+  /// </summary>
+  /// <param name="lastComputerCardValue"></param>
+  /// <returns></returns>
+  private static int GetComputerScores(int lastComputerCardValue)
   {
     // Увеличить кол-во очков у ИИ.
     // Можно перенести этот метод, по желанию, в утильный класс для игроков.
+
+    return computerScores += lastComputerCardValue;
   }
 
   private void TakeOneMoreCardUser(Player player) 
@@ -62,9 +79,26 @@ internal class Game
     // Если да, то даём.
   }
 
-  private void TakeOneMoreCardComputer(Player player)
+  /// <summary>
+  /// Принимает значение суммарных очков у ИИ. Если оно больше или равно dangerSum, ИИ задумывается, брать ли ещё карту за счёт рандома. Если нет, то ход передаётся
+  /// следующему игроку. dangerSum может быть изменено в процессе тестирования. Предварительно оно равно 11.
+  /// </summary>
+  /// <param name="computerScores"></param>
+  private void TakeOneMoreCardComputer(int computerScores)
   {
     // Логика взятия карт для ИИ.
+
+    if (computerScores >= dangerSum)
+    {
+      Random random = new Random();
+
+      if (random.Next(100) < 50)
+        GiveCard(player); // На 24.07.23 10:30 неизвестно, с какими параметрами передавать метод GiveCard, так как класс Player не реализован.
+      else
+        IsNext = true;
+    }
+    else
+      GiveCard(player);   // На 24.07.23 10:30 неизвестно, с какими параметрами передавать метод GiveCard, так как класс Player не реализован.
   }
 
   private void GiveCard(Player player)
