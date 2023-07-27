@@ -26,7 +26,9 @@ public class Player
   /// <param name="card">Карта.</param>
   public void AddCard(Card card)
   {
-    // Добавляем карту в колоду.
-    // Увеличиваем кол-во очков на кол-ко очков карты.
+    Cards.Add(card);
+    CurrentScore = CurrentScore + card.Point;
+        // Добавляем карту в колоду.
+        // Увеличиваем кол-во очков на кол-ко очков карты.
   }
 }
