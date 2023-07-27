@@ -18,7 +18,8 @@ public class PlayerManager
   /// <param name="players">Список игроков.</param>
   public void AddPlayers(List<Player> players)
   {
-    // ...
+    foreach (var player in players)
+    queuePlayers.Enqueue(player);
   }
 
   /// <summary>
@@ -27,7 +28,9 @@ public class PlayerManager
   /// <returns>Вернёт игрока.</returns>
   public Player GetNextPlayer()
   {
-    // ...
+    var player = queuePlayers.Peek();
+    queuePlayers.Enqueue(player);
+    return player;
   }
 
   /// <summary>
@@ -36,7 +39,8 @@ public class PlayerManager
   /// <returns>Вернёт игрока.</returns>
   public Player NextPlayer()
   {
-    // ...
+    var player = queuePlayers.Peek();
+    return player;
   }
 
   /// <summary>

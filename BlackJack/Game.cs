@@ -42,17 +42,17 @@ internal class Game
   /// <returns></returns>
   public bool IsNextTurn()
   {
-      var player = PlayerManager.NextPlayer();
-        if (player.IsActive)
+    var player = PlayerManager.NextPlayer();
+      if (player.IsActive)
         {
-            GiveCard(player);
-            CheckWin(player);
-            return true;
+          GiveCard(player);
+          CheckWin(player);
+          return true;
         }
-        else
+      else
         { 
-        PlayerManager.GetNextPlayer();
-            return false;
+          PlayerManager.GetNextPlayer();
+          return false;
         }
     // Берём игрока из метода NextPlayer класса PlayerManager.
     // Проверяем, активный или нет.
@@ -67,14 +67,12 @@ internal class Game
   /// <param name="isMore">Нужна ещё карта или нет.</param>
   public void TakeOneMoreCard(bool isMore)
   {
-        var player = PlayerManager.GetNextPlayer();
-        if (isMore)
+    var player = PlayerManager.GetNextPlayer();
+      if (isMore)
         {
-            if (player.IsAi)
-            
-                TakeOneMoreCardComputer(player);
-            
-            else GiveCard(player);
+          if (player.IsAi)
+            TakeOneMoreCardComputer(player);
+          else GiveCard(player);
         }
         CheckWin(player);
     // Берём игрока из метода GetNextPlayer класса PlayerManager
