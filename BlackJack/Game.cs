@@ -18,6 +18,8 @@ internal class Game
   {
     CardUtil.ShuffleCardDeck(); // Перетасовка колоды.
     
+    List<Player> player = new List<Player>();
+
     // Создать класс Player и положить его в List<Player> или класс, который будет хранить всех игроков и их состояние.
     // Создать Getter для игроков, точно так же как и для колоды карт.
 
@@ -54,7 +56,7 @@ internal class Game
   /// <returns></returns>
   private static int GetUserScores(int lastUserCardValue)
   {
-    // Увеличить кол-во очков у игроока.
+    // Увеличить кол-во очков у игрока.
     // Можно перенести этот метод, по желанию, в утильный класс для игроков.
 
     return userScores += lastUserCardValue;
@@ -75,6 +77,12 @@ internal class Game
 
   private void TakeOneMoreCardUser(Player player) 
   {
+    if (Console.ReadKey().Key == ConsoleKey.Y)
+    {
+      GiveCard(player);
+      GetUserScores((int)player.ReceivedCards.Last().CardType);
+    }
+    TakeOneMoreCardComputer(computerScores);
     // Хочет взять ещё пользователь или нет
     // Если да, то даём.
   }
@@ -103,6 +111,7 @@ internal class Game
 
   private void GiveCard(Player player)
   {
+    player.ReceivedCards.Add(CardUtil.GiveCard());
     // Тут даём игроку карту через метод GiveCard из класса CardUtil.
   }
 }
