@@ -1,4 +1,4 @@
 ﻿using BlackJack;
 
-ConsoleGameStarter cgs = new ConsoleGameStarter();
-cgs.Start();
+ConsoleGameStarter gs = new ConsoleGameStarter();
+gs.Start();

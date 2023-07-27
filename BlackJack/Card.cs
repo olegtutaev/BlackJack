@@ -1,5 +1,8 @@
 namespace BlackJack;
 
+/// <summary>
+/// Класс, представляющий собой игровую карту.
+/// </summary>
 public class Card
 {
   public Card(int point, CardType cardType, CardSuite cardSuite)

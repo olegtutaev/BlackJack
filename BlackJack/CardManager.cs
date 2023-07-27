@@ -1,17 +1,24 @@
 namespace BlackJack;
 
-public class CardUtil
+/// <summary>
+/// Класс для работы с картами.
+/// </summary>
+public class CardManager
 {
   private Stack<Card> cardDeck;
 
-  public CardUtil()
+  public CardManager()
   {
     cardDeck = FillDeck();
   }
   
+  /// <summary>
+  /// Инициализация типов и мастей карт с последующим заполнением колоды.
+  /// </summary>
+  /// <returns>Стек колоды карт.</returns>
   private Stack<Card> FillDeck()
   {
-    var cardTypes = new List<CardType> // Пока оставил как костыль. Тут все 36 карт.
+    var cardTypes = new List<CardType>
     {
       CardType.Six,
       CardType.Seven,
@@ -34,8 +41,16 @@ public class CardUtil
     return GenerateCardDeck(cardTypes, cardSuites);
   }
   
+  /// <summary>
+  /// Генерация колоды карт.
+  /// </summary>
+  /// <param name="cardTypes">Список типов карт.</param>
+  /// <param name="cardSuites">Список мастей карт.</param>
+  /// <returns>Стек колоды карт.</returns>
   private Stack<Card> GenerateCardDeck(List<CardType> cardTypes, List<CardSuite> cardSuites)
   {
+    Console.WriteLine("Генерация карт...");
+    
     cardDeck = new Stack<Card>();
     
     foreach (var cardType in cardTypes)
@@ -56,7 +71,9 @@ public class CardUtil
   /// </summary>
   public void ShuffleCardDeck()
   {
-    if (cardDeck.Count != 36) // Тоже временный костыль.
+    Console.WriteLine("Перетасовка карт...");
+    
+    if (cardDeck.Count != 36)
     {
       cardDeck = FillDeck();
     }
@@ -68,7 +85,7 @@ public class CardUtil
   /// <summary>
   /// Взять карту из колоды.
   /// </summary>
-  /// <returns>Возвращает карту.</returns>
+  /// <returns>Вернёт карту из стека и удалит её.</returns>
   public Card GiveCard()
   {
     return cardDeck.Pop();

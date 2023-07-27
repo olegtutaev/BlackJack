@@ -1,117 +1,137 @@
 ﻿namespace BlackJack;
 
+/// <summary>
+/// Главное связующие звено, между игровой логикой и взаимодействием с игроками.
+/// </summary>
 internal class Game
 {
-    public Game()
+  public Game()
   {
-    this.CardUtil = new CardUtil();
+    this.CardManager = new CardManager();
+    this.PlayerManager = new PlayerManager();
+
     this.IsNext = true;
+    this.Winner = new Player("There is no winner yet!", true);
   }
 
-  public static int userScores;
-  public static int computerScores;
-  public static int dangerSum = 11;
-  public CardUtil CardUtil { get; }
+  private const int dangerSum = 11; // Некий пороог очков, превысив который ИИ может рандомно не брать доп. карту.
+
+  public Player Winner { get; private set; }
+  public CardManager CardManager { get; }
+  public PlayerManager PlayerManager { get; }
+
   public bool IsNext { get; private set; }
 
-  public void PlayGame(GameMode gameMode, int playerCount = 1)
+  /// <summary>
+  /// Инициализация игроков и колоды карт.
+  /// </summary>
+  /// <param name="players">Список игроков.</param>
+  public void PlayGame(List<Player> players)
   {
-    CardUtil.ShuffleCardDeck(); // Перетасовка колоды.
-    
-    List<Player> player = new List<Player>();
-
-    // Создать класс Player и положить его в List<Player> или класс, который будет хранить всех игроков и их состояние.
-    // Создать Getter для игроков, точно так же как и для колоды карт.
-
-    switch (gameMode)
-    {
-      case GameMode.PVE:
-        // ...
-        break;
-      case GameMode.PVP:
-        // ...
-        break;
-    }
+    CardManager.ShuffleCardDeck();
+    PlayerManager.AddPlayers(players);
 
     // ...
   }
 
-  public void NextTurn()
+  /// <summary>
+  /// Ходит ли игрок.
+  /// Берёт игрока и проверяет, активный или нет.
+  /// Если да, то игрок ходит, если нет, перемещает его в конец очереди.
+  /// </summary>
+  /// <returns></returns>
+  public bool IsNextTurn()
   {
-    // Тут главная логика, где ходят игроки.
-
-    if (CheckWin()) IsNext = false; // <- тут спорно. Можно изменить.
+    // Берём игрока из метода NextPlayer класса PlayerManager.
+    // Проверяем, активный или нет.
+    // Если да, даём карту игроку и проверяем его методом CheckWin и возвращаем True.
+    // Если нет, вызываем метод GetNextPlayer класса PlayerManager и возвращаем False.
   }
 
-  private bool CheckWin()
+  /// <summary>
+  /// Нужна ли ещё карта, или нет.
+  /// Перемещает игрока в конец очереди, и не важно, берёт ли доп. карту или нет.
+  /// </summary>
+  /// <param name="isMore">Нужна ещё карта или нет.</param>
+  public void TakeOneMoreCard(bool isMore)
   {
-    // Проверка выйгрыша или проигрыша игрока.
+    // Берём игрока из метода GetNextPlayer класса PlayerManager
+    // Если хотим ещё карту, проверяем, бот ли игрок.
+    // Если да, вызываем метод TakeOneMoreCardComputer.
+    // Если нет, просто даём карту игроку.
+    // После всех ифоф, проверяем методом CheckWin игрока.
+  }
+
+  /// <summary>
+  /// Проверка на количество игроков. Если остался 1 игрок, он автоматически выйгрывает.
+  /// </summary>
+  /// <returns></returns>
+  public bool CheckPlayers()
+  {
+    var activeCount = PlayerManager.GetPlayersActiveCount();
+
+    if (activeCount > 1) return true;
+
+    Winner = PlayerManager.GetFirstActivePlayer();
     return false;
   }
 
   /// <summary>
-  /// Принимает значение последней полученной карты и суммирует с уже набранными очками.
+  /// Проверка на выйгрыш или проигрышь игрока.
   /// </summary>
-  /// <param name="lastUserCardValue"></param>
-  /// <returns></returns>
-  private static int GetUserScores(int lastUserCardValue)
+  /// <param name="player"></param>
+  /// <returns>True в случае выйгрыша, False в ином случае.</returns>
+  private bool CheckWin(Player player)
   {
-    // Увеличить кол-во очков у игрока.
-    // Можно перенести этот метод, по желанию, в утильный класс для игроков.
-
-    return userScores += lastUserCardValue;
-  }
-
-  /// <summary>
-  /// Принимает значение последней полученной карты и суммирует с уже набранными очками.
-  /// </summary>
-  /// <param name="lastComputerCardValue"></param>
-  /// <returns></returns>
-  private static int GetComputerScores(int lastComputerCardValue)
-  {
-    // Увеличить кол-во очков у ИИ.
-    // Можно перенести этот метод, по желанию, в утильный класс для игроков.
-
-    return computerScores += lastComputerCardValue;
-  }
-
-  private void TakeOneMoreCardUser(Player player) 
-  {
-    if (Console.ReadKey().Key == ConsoleKey.Y)
+    if (player.CurrentScore == 21)
     {
-      GiveCard(player);
-      GetUserScores((int)player.ReceivedCards.Last().CardType);
+      IsNext = false;
+      Winner = player;
+      return true;
     }
-    TakeOneMoreCardComputer(computerScores);
-    // Хочет взять ещё пользователь или нет
-    // Если да, то даём.
+
+    if (player.CurrentScore > 21)
+    {
+      player.IsActive = false;
+      Console.WriteLine($"Игрок {player.Name} набрал больше 21 и выбывает!");
+    }
+
+    return false;
   }
 
   /// <summary>
-  /// Принимает значение суммарных очков у ИИ. Если оно больше или равно dangerSum, ИИ задумывается, брать ли ещё карту за счёт рандома. Если нет, то ход передаётся
+  /// Если сумарное число очков ИИ больше или равно dangerSum, ИИ задумывается, брать ли ещё карту за счёт рандома. Если нет, то ход передаётся
   /// следующему игроку. dangerSum может быть изменено в процессе тестирования. Предварительно оно равно 11.
   /// </summary>
-  /// <param name="computerScores"></param>
-  private void TakeOneMoreCardComputer(int computerScores)
+  /// <param name="player">Игрок</param>
+  private void TakeOneMoreCardComputer(Player player)
   {
-    // Логика взятия карт для ИИ.
-
-    if (computerScores >= dangerSum)
+    if (player.CurrentScore >= dangerSum)
     {
       Random random = new Random();
 
       if (random.Next(100) < 50)
-        GiveCard(player); // На 24.07.23 10:30 неизвестно, с какими параметрами передавать метод GiveCard, так как класс Player не реализован.
+        GiveCard(player);
       else
-        IsNext = true;
+      {
+        Console.WriteLine($"Бот {player.Name} отказался брать карту.");
+      }
     }
     else
-      GiveCard(player);   // На 24.07.23 10:30 неизвестно, с какими параметрами передавать метод GiveCard, так как класс Player не реализован.
+      GiveCard(player);
   }
 
+  /// <summary>
+  /// Даём игроку карту.
+  /// </summary>
+  /// <param name="player">Игрок</param>
   private void GiveCard(Player player)
   {
-    player.ReceivedCards.Add(CardUtil.GiveCard());
-    // Тут даём игроку карту через метод GiveCard из класса CardUtil.
+    var card = CardManager.GiveCard();
+
+    player.AddCard(card);
+
+    Console.WriteLine(
+      $"Выдача карты: {card.CardType}, {card.CardSuite}, {card.Point} Игроку: {player.Name}, current score: {player.CurrentScore}");
   }
 }

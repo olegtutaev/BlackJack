@@ -1,5 +1,8 @@
 namespace BlackJack;
 
+/// <summary>
+/// Типы карт.
+/// </summary>
 public enum CardType
 {
   Two = 2,
