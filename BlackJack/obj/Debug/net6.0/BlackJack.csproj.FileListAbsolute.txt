@@ -1,5 +1,0 @@
-C:\Users\pbask\source\repos\BlackJack\BlackJack\obj\Debug\net6.0\BlackJack.csproj.AssemblyReference.cache
-C:\Users\pbask\source\repos\BlackJack\BlackJack\obj\Debug\net6.0\BlackJack.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\pbask\source\repos\BlackJack\BlackJack\obj\Debug\net6.0\BlackJack.AssemblyInfoInputs.cache
-C:\Users\pbask\source\repos\BlackJack\BlackJack\obj\Debug\net6.0\BlackJack.AssemblyInfo.cs
-C:\Users\pbask\source\repos\BlackJack\BlackJack\obj\Debug\net6.0\BlackJack.csproj.CoreCompileInputs.cache
