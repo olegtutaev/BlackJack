@@ -88,6 +88,10 @@ public class CardManager
   /// <returns>Вернёт карту из стека и удалит её.</returns>
   public Card GiveCard()
   {
-    return cardDeck.Pop();
+    var card = cardDeck.Pop();
+
+    Console.WriteLine($"Карта {card.CardType}, {card.CardSuite}, {card.Point} взята из колоды...");
+    
+    return card;
   }
 }

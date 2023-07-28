@@ -18,23 +18,30 @@ public class PlayerManager
   /// <param name="players">Список игроков.</param>
   public void AddPlayers(List<Player> players)
   {
+    Console.WriteLine("Добавление игроков в очередь...");
+    
+    queuePlayers.Clear();
+    
     foreach (var player in players)
-    queuePlayers.Enqueue(player);
+      queuePlayers.Enqueue(player);
   }
 
   /// <summary>
-  /// Дать игрока из начала очереди и перемещает его в конец очереди.
+  /// Берёт игрока из начала очереди и перемещает его в конец очереди.
   /// </summary>
   /// <returns>Вернёт игрока.</returns>
   public Player GetNextPlayer()
   {
-    var player = queuePlayers.Peek();
+    var player = queuePlayers.Dequeue();
     queuePlayers.Enqueue(player);
+
+    Console.WriteLine($"Игрок {player.Name} встал в конец очереди...");
+    
     return player;
   }
 
   /// <summary>
-  /// Дать игрока из начала очереди без перемещения его в конец очереди.
+  /// Берёт игрока из начала очереди без перемещения его в конец очереди.
   /// </summary>
   /// <returns>Вернёт игрока.</returns>
   public Player NextPlayer()
@@ -49,7 +56,7 @@ public class PlayerManager
   /// <returns>Список игроков</returns>
   public List<Player> GetAllPlayers()
   {
-    // ...
+    return queuePlayers.ToList();
   }
 
   /// <summary>
@@ -58,7 +65,7 @@ public class PlayerManager
   /// <returns>Число активных игроков.</returns>
   public int GetPlayersActiveCount()
   {
-    // ...
+    return queuePlayers.Count(player => player.IsActive);
   }
 
   /// <summary>
@@ -67,6 +74,6 @@ public class PlayerManager
   /// <returns>Даст игрока.</returns>
   public Player GetFirstActivePlayer()
   {
-    // ...
+    return queuePlayers.FirstOrDefault(player => player.IsActive);
   }
 }

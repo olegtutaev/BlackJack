@@ -13,15 +13,16 @@ public class ConsoleGameStarter
   public void Start()
   {
     // Заглушка, где инициализируется игрок и бот.
-    game.PlayGame(new List<Player> { new("Karusel'ka", false), new("Bot2000", true) });
+    game.InitGame(new List<Player> { new("Karusel'ka", false), new("Bot2000", true) });
+    Console.WriteLine();
+    
     PrintInfo();
 
     while (true)
     {
       Console.WriteLine();
-      PrintCurrentPlayer();
 
-      if (!game.IsNextTurn()) continue;
+      if (!game.IsNextTurn()) continue; // Ход игрока, если игрок не активен (набрал больше 21), он не ходит.
 
       if (!game.IsNext || !game.CheckPlayers()) break;
 
@@ -29,15 +30,18 @@ public class ConsoleGameStarter
 
       if (!game.IsNext || !game.CheckPlayers()) break;
 
+      Console.WriteLine();
       PrintInfo();
     }
 
     Console.WriteLine();
     PrintWinner();
+
+    Console.ReadLine(); // Чтоб консоль мгновено не закрылась.
   }
 
   /// <summary>
-  /// Логика взятия дополнительных карт.
+  /// Логика дополнительных карт.
   /// </summary>
   private void TryTakeMore()
   {
@@ -76,6 +80,8 @@ public class ConsoleGameStarter
     {
       Console.WriteLine($"Name: {player.Name}, Score: {player.CurrentScore}, Active: {player.IsActive}");
     }
+    
+    Console.WriteLine("-------------------< Info >-------------------");
   }
 
   private void PrintCurrentPlayer()
@@ -83,7 +89,9 @@ public class ConsoleGameStarter
     Console.WriteLine("-------------------< Player Info >-------------------");
 
     var nextPlayer = game.PlayerManager.NextPlayer();
-    Console.WriteLine($"Ход игрока: {nextPlayer.Name}. Current score: {nextPlayer.CurrentScore}");
+    Console.WriteLine($"Ход игрока: {nextPlayer.Name}. Текущее кол-во очков: {nextPlayer.CurrentScore}");
+    
+    Console.WriteLine("-------------------< Player Info >-------------------");
   }
 
   private void PrintWinner()
@@ -92,5 +100,7 @@ public class ConsoleGameStarter
 
     var winner = game.Winner;
     Console.WriteLine($"Победитель: {winner.Name}!");
+    
+    Console.WriteLine("-------------------< Winner! >-------------------");
   }
 }

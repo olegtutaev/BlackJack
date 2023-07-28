@@ -1,7 +1,7 @@
 ﻿namespace BlackJack;
 
 /// <summary>
-/// Главное связующие звено, между игровой логикой и взаимодействием с игроками.
+/// Класс с игровой логикой.
 /// </summary>
 internal class Game
 {
@@ -17,21 +17,21 @@ internal class Game
   private const int dangerSum = 11; // Некий пороог очков, превысив который ИИ может рандомно не брать доп. карту.
 
   public Player Winner { get; private set; }
+  public bool IsNext { get; private set; }
+  
   public CardManager CardManager { get; }
   public PlayerManager PlayerManager { get; }
-
-  public bool IsNext { get; private set; }
-
+  
   /// <summary>
   /// Инициализация игроков и колоды карт.
   /// </summary>
   /// <param name="players">Список игроков.</param>
-  public void PlayGame(List<Player> players)
+  public void InitGame(List<Player> players)
   {
+    Console.WriteLine("Инициализация игроков и перетасовка карт...");
+    
     CardManager.ShuffleCardDeck();
     PlayerManager.AddPlayers(players);
-
-    // ...
   }
 
   /// <summary>
@@ -43,21 +43,18 @@ internal class Game
   public bool IsNextTurn()
   {
     var player = PlayerManager.NextPlayer();
-      if (player.IsActive)
-        {
-          GiveCard(player);
-          CheckWin(player);
-          return true;
-        }
-      else
-        { 
-          PlayerManager.GetNextPlayer();
-          return false;
-        }
-    // Берём игрока из метода NextPlayer класса PlayerManager.
-    // Проверяем, активный или нет.
-    // Если да, даём карту игроку и проверяем его методом CheckWin и возвращаем True.
-    // Если нет, вызываем метод GetNextPlayer класса PlayerManager и возвращаем False.
+    
+    Console.WriteLine($"Ход игрока: {player.Name}, Score: {player.CurrentScore}");
+
+    if (player.IsActive)
+    {
+      GiveCard(player);
+      CheckWin(player);
+      return true;
+    }
+
+    PlayerManager.GetNextPlayer();
+    return false;
   }
 
   /// <summary>
@@ -68,18 +65,15 @@ internal class Game
   public void TakeOneMoreCard(bool isMore)
   {
     var player = PlayerManager.GetNextPlayer();
-      if (isMore)
-        {
-          if (player.IsAi)
-            TakeOneMoreCardComputer(player);
-          else GiveCard(player);
-        }
-        CheckWin(player);
-    // Берём игрока из метода GetNextPlayer класса PlayerManager
-    // Если хотим ещё карту, проверяем, бот ли игрок.
-    // Если да, вызываем метод TakeOneMoreCardComputer.
-    // Если нет, просто даём карту игроку.
-    // После всех ифоф, проверяем методом CheckWin игрока.
+
+    if (isMore)
+    {
+      if (player.IsAi)
+        TakeOneMoreCardComputer(player);
+      else GiveCard(player);
+    }
+
+    CheckWin(player);
   }
 
   /// <summary>
@@ -131,14 +125,19 @@ internal class Game
       Random random = new Random();
 
       if (random.Next(100) < 50)
-        GiveCard(player);
-      else
       {
-        Console.WriteLine($"Бот {player.Name} отказался брать карту.");
+        Console.WriteLine($"Бот {player.Name} решил взять ещё карту.");
+        GiveCard(player);
       }
+      else
+        Console.WriteLine($"Бот {player.Name} отказался брать карту.");
     }
     else
+    {
       GiveCard(player);
+      Console.WriteLine($"Бот {player.Name} решил взять ещё карту.");
+    }
+    
   }
 
   /// <summary>
@@ -150,8 +149,7 @@ internal class Game
     var card = CardManager.GiveCard();
 
     player.AddCard(card);
-
-    Console.WriteLine(
-      $"Выдача карты: {card.CardType}, {card.CardSuite}, {card.Point} Игроку: {player.Name}, current score: {player.CurrentScore}");
+    
+    Console.WriteLine($"Выдача карты {card.CardType}, {card.CardSuite}, {card.Point}\nИгроку: {player.Name}, Score: {player.CurrentScore}");
   }
 }

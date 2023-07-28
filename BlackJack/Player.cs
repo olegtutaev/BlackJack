@@ -27,8 +27,6 @@ public class Player
   public void AddCard(Card card)
   {
     Cards.Add(card);
-    CurrentScore = CurrentScore + card.Point;
-        // Добавляем карту в колоду.
-        // Увеличиваем кол-во очков на кол-ко очков карты.
+    CurrentScore += card.Point;
   }
 }
