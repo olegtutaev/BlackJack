@@ -44,6 +44,7 @@ namespace SettingsDesign_Keyboard
 
         if (InfoToolTipPanel.gameStart)
         {
+          DataClass.VisibleInfoPoints();
           InfoToolTipPanel.rejection = false;
           DataClass.ResetСards();
           game = new Game();
@@ -98,7 +99,7 @@ namespace SettingsDesign_Keyboard
       }
       else if (e.KeyCode == Keys.Escape) Application.Exit();
 
-      DataClass.VisibleInfoPoints();
+      //DataClass.VisibleInfoPoints();
 
       //во все ифы которые устанавливают rejection НАДО
       //както обновляет табло с хоткеями, как будто новая игра. Ну или на то которое появляется после нажатия пробела.
