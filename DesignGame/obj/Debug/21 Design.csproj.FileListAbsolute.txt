@@ -1,0 +1,9 @@
+V:\21 Design\obj\Debug\21 Design.csprojAssemblyReference.cache
+V:\21 Design\obj\Debug\SettingsDesign.DesignForm.resources
+V:\21 Design\obj\Debug\SettingsDesign.Properties.Resources.resources
+V:\21 Design\obj\Debug\21 Design.csproj.GenerateResource.cache
+V:\21 Design\bin\Debug\21 Design.exe.config
+V:\21 Design\bin\Debug\21 Design.exe
+V:\21 Design\bin\Debug\21 Design.pdb
+V:\21 Design\obj\Debug\21 Design.exe
+V:\21 Design\obj\Debug\21 Design.pdb

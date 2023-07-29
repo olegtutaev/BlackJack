@@ -1,0 +1,20 @@
+V:\21 Design\bin\Debug\Game Design Point.exe.config
+V:\21 Design\bin\Debug\Game Design Point.exe
+V:\21 Design\bin\Debug\Game Design Point.pdb
+V:\21 Design\obj\Debug\Game Design Point.csprojAssemblyReference.cache
+V:\21 Design\obj\Debug\SettingsDesign.Properties.Resources.resources
+V:\21 Design\obj\Debug\Game Design Point.csproj.GenerateResource.cache
+V:\21 Design\obj\Debug\Game Design Point.exe
+V:\21 Design\obj\Debug\Game Design Point.pdb
+V:\21 Design\obj\Debug\SettingsDesign.GameForm.resources
+C:\Users\and-r\source\repos\BlackJack\DesignGame\bin\Debug\Game Design Point.exe.config
+C:\Users\and-r\source\repos\BlackJack\DesignGame\bin\Debug\Game Design Point.exe
+C:\Users\and-r\source\repos\BlackJack\DesignGame\bin\Debug\Game Design Point.pdb
+C:\Users\and-r\source\repos\BlackJack\DesignGame\obj\Debug\Game Design Point.csproj.AssemblyReference.cache
+C:\Users\and-r\source\repos\BlackJack\DesignGame\obj\Debug\Game Design Point.csproj.SuggestedBindingRedirects.cache
+C:\Users\and-r\source\repos\BlackJack\DesignGame\obj\Debug\SettingsDesign.GameForm.resources
+C:\Users\and-r\source\repos\BlackJack\DesignGame\obj\Debug\SettingsDesign.Properties.Resources.resources
+C:\Users\and-r\source\repos\BlackJack\DesignGame\obj\Debug\Game Design Point.csproj.GenerateResource.cache
+C:\Users\and-r\source\repos\BlackJack\DesignGame\obj\Debug\Game Design Point.csproj.CoreCompileInputs.cache
+C:\Users\and-r\source\repos\BlackJack\DesignGame\obj\Debug\Game Design Point.exe
+C:\Users\and-r\source\repos\BlackJack\DesignGame\obj\Debug\Game Design Point.pdb
